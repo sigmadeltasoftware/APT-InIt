@@ -25,6 +25,57 @@ The installation of everything is based on Rake (https://github.com/ruby/rake) w
 * rake init - Which will run the initialization task. It is possible you will have to terminate your terminal-sessionrun the task again after the environment variables have been bound to your bash-profile.
 * rake dia - 'dia' or Do-it-all will afterward run the other individual tasks to install the applications and the vim-plugins. If you only want the Vim-plugins or the applications, try running *rake vim* or *rake apps* respectively instead.
 
+## Contents
+
+The rakefile contains the following: 
+
+##### Applications
+
+* Sublime Text 3
+* Flashplugin-nonfree
+* NodeJS
+* Chromium
+* Vim / gVim
+* ZimWiki
+* Nemiver
+* Meld
+* VLC
+* FileZilla
+* Plank/Docky
+* TLP Power Management
+
+##### Programming Environment
+
+* EnvInit.sh contains a centralized position for environment variables
+
+##### Tools
+
+- There are a number of Vim-plugins included which will make your life (a lot!) easier:
+
+* Vundle - (https://github.com/VundleVim/Vundle.vim)
+* Vim-Commentary - (https://github.com/tpope/vim-commentary)
+* Vim-Fugitive - (https://github.com/tpope/vim-fugitive)
+* Vim-JavaScript - (https://github.com/pangloss/vim-javascript)
+* Nerdtree - (https://github.com/scrooloose/nerdtree)
+* Vim-JSON - (https://github.com/elzr/vim-json)
+* Vim-Node - (https://github.com/moll/vim-node)
+* Vim-HAML - (https://github.com/tpope/vim-haml)
+* Vim-Cpp-Enhanced-Highlight - (https://github.com/octol/vim-cpp-enhanced-highlight)
+* YouCompleteMe - (https://github.com/Valloric/YouCompleteMe)
+* TernJS - (http://ternjs.net/)
+
+Explanations can be found on their respective pages.
+
+- There are some Git-modifications as well
+
+* Running "git df 'filename' " will open a "diff" window in gVim with a lot more detail than the standard terminal Vi-version would
+
+## To Be Done
+
+* Support for different OS'
+* Automated installation of XAMPP
+
+
 ## Contributors
 
 Feel free to make a constructive contribution or fork from this and edit to your own taste. 

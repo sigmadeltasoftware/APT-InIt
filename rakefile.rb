@@ -157,7 +157,7 @@ task :apps do
   Getter.addRepo('ppa:linrunner/tlp')
   Getter.addRepo('ppa:ricotz/docky')
 
-  # Update the repositores
+  # Update the repositories
   begin  
     Getter.update()
   rescue
