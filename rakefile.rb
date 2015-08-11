@@ -63,9 +63,18 @@ task :vim do
 
   # Set up Vim-environment
   puts "--- TASK: Vim setup---".green
-  puts " >>>>> Cloning necessary submodules...".blue
 
-  # Add plugin-repositories
+  # Remote precious links/files
+  begin
+    sh("rm ~/.vim")
+    sh("rm ~/.vimrc")
+  rescue
+    puts "WARNING: No previous Vim-config files found".yellow 
+  end
+
+  # Add plugin-repositories 
+  puts " >>>>> Cloning necessary submodules...".blue
+ 
   plugins = Array.new
   plugins.push('https://github.com/gmarik/Vundle.vim.git')
   plugins.push('git://github.com/tpope/vim-commentary.git')
@@ -77,6 +86,7 @@ task :vim do
   plugins.push('https://github.com/tpope/vim-haml.git')
   plugins.push('https://github.com/octol/vim-cpp-enhanced-highlight.git')
   plugins.push('https://github.com/Valloric/YouCompleteMe.git')
+  plugins.push('https://github.com/marijnh/tern_for_vim.git')
 
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
@@ -95,6 +105,17 @@ task :vim do
   Dir.chdir(File.join(bundleDir,'YouCompleteMe')) do
     Gitter.uth()
     sh "./install.sh --clang-completer"
+  end
+
+  # Install TernJS
+  begin
+    Getter.install(nodejs npm)
+  rescue
+    puts "WARNING: NodeJS/npm already installed!".yellow
+  end
+
+  Dir.chdir(File.join(bundleDir,'tern_for_vim')) do
+    sh('npm install')
   end
 
 
