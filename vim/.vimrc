@@ -19,6 +19,7 @@ Plugin 'elzr/vim-json'
 Plugin 'moll/vim-node'
 Plugin 'tpope/vim-haml'
 Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'bling/vim-airline'
 
 
 
@@ -33,6 +34,15 @@ filetype plugin indent on
 " Enable JavaScript syntax highlighting 
 let javascript_enable_domhtmlcss=1
 
+" YouCompleteMe C++ Support
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_confirm_extra_conf=0
+let g:ycm_collect_identifiers_from_tag_files = 1
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+autocmd CompleteDone * pclose
+
 " Extra CPP Enhanced highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
@@ -40,6 +50,9 @@ let g:cpp_experimental_template_highlight = 1
 " Start NERDTree using CTRL+n
 map <C-n> :NERDTreeToggle<CR>
 
+" Smarter tab line - Vim-Airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 
 " Enable copying to clipboard using 'CTRL + c'
 vmap <C-c> "+yi

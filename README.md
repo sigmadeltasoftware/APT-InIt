@@ -8,10 +8,11 @@
 
 APT-InIt is a Rake-based script for Debian (Mostly Ubuntu) systems which will initialize the system with the necessary modificiations which I, ItWillDo, require to get my development environment up and running. These range from basic applications such as the Chromium browser, to shell-scripts with environment variables which I use for my dev env. The project is reliant on the following dependencies: 
 
+
 * Git
 * Rake
-* REPO environment variable which points to the parent directory of APT-InIt
-* APT_INIT environment variable which points to your local APT-InIt repository
+* **REPO** environment variable which points to the parent directory of APT-InIt
+* **APT_INIT** environment variable which points to your local APT-InIt repository
 
 
 ## Motivation
@@ -22,8 +23,12 @@ Considering setting up a good development environment can be time-consuming and 
 
 The installation of everything is based on Rake (https://github.com/ruby/rake) which will make porting to different operating systems in a future a bit easier. To make use of this script, install the mentioned dependencies and afterward go to the $APT_INIT directory. From here run: 
 
-* rake init - Which will run the initialization task. It is possible you will have to terminate your terminal-sessionrun the task again after the environment variables have been bound to your bash-profile.
-* rake dia - 'dia' or Do-it-all will afterward run the other individual tasks to install the applications and the vim-plugins. If you only want the Vim-plugins or the applications, try running *rake vim* or *rake apps* respectively instead.
+```
+* rake init -- Which will run the initialization task. It is possible you will have to terminate your terminal-sessionrun the task again after the environment variables have been bound to your bash-profile.
+```
+```
+* rake dia -- 'dia' or Do-it-all will afterward run the other individual tasks to install the applications and the vim-plugins. If you only want the Vim-plugins or the applications, try running *rake vim* or *rake apps* respectively instead.
+```
 
 ## Contents
 
@@ -63,12 +68,16 @@ The rakefile contains the following:
 * Vim-Cpp-Enhanced-Highlight - (https://github.com/octol/vim-cpp-enhanced-highlight)
 * YouCompleteMe - (https://github.com/Valloric/YouCompleteMe)
 * TernJS - (http://ternjs.net/)
+* Vim-Airline - (https://github.com/bling/vim-airline)
 
 Explanations can be found on their respective pages.
 
-- There are some Git-modifications as well
+**Important note:** To make optimal use of YouCompleteMe, look into how the **.ycm_extra_conf.py** files work. If you also use a centralized include-directory, make sure you add an extra '-I' flag to the flags-variable inside of the file and make it point to the include directory.
 
+- There are some Git-modifications as well
+```
 * Running "git df 'filename' " will open a "diff" window in gVim with a lot more detail than the standard terminal Vi-version would
+```
 
 ## To Be Done
 

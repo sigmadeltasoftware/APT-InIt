@@ -87,6 +87,7 @@ task :vim do
   plugins.push('https://github.com/octol/vim-cpp-enhanced-highlight.git')
   plugins.push('https://github.com/Valloric/YouCompleteMe.git')
   plugins.push('https://github.com/marijnh/tern_for_vim.git')
+  plugins.push('https://github.com/bling/vim-airline.git')
 
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
@@ -201,9 +202,24 @@ task :apps do
   # End of :apps
   puts ">>>> Task :apps succesfully ended!".yellow
   puts ""
+  
 end
 
-task :dia => [:vim, :apps] do
+
+task :tools do
+  # Install GCC 4.9
+  Getter.addRepo('ppa:ubuntu-toolchain-r/test')
+  Getter.update
+  Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')
+
+  sh "sudo apt-get autoremove" # Remove old versions
+
+  puts "Installed necessary tools".yellow
+end
+
+
+
+task :dia => [:vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red
