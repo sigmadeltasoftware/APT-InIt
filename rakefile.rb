@@ -72,7 +72,7 @@ task :vim do
     puts "WARNING: No previous Vim-config files found".yellow 
   end
 
-  # Add plugin-repositories 
+  # Clone plugin-repositories
   puts " >>>>> Cloning necessary submodules...".blue
  
   plugins = Array.new
@@ -88,6 +88,9 @@ task :vim do
   plugins.push('https://github.com/Valloric/YouCompleteMe.git')
   plugins.push('https://github.com/marijnh/tern_for_vim.git')
   plugins.push('https://github.com/bling/vim-airline.git')
+  plugins.push('https://github.com/SirVer/ultisnips.git')
+  plugins.push('https://github.com/honza/vim-snippets.git')
+  plugins.push('https://github.com/ervandew/supertab.git')
 
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
@@ -98,6 +101,16 @@ task :vim do
         puts "ERROR: #{repo} already existing or invalid".red
       end
     end
+  end
+
+  # Clone delimitMate
+  delimDir = File.join(Cradle.getAptInit, '/vim/.vim/')
+  Dir.chdir(delimDir) do
+      begin
+	  Gitter.clone('https://github.com/Raimondi/delimitMate.git')
+      rescue
+	  puts "ERROR: https://github.com/Raimondi/delimitMate.git already existing or invalid"
+      end
   end
 
   # Install YouCompleteMe Necessities

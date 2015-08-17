@@ -11,8 +11,8 @@ APT-InIt is a Rake-based script for Debian (Mostly Ubuntu) systems which will in
 
 * Git
 * Rake
-* **REPO** environment variable which points to the parent directory of APT-InIt
-* **APT_INIT** environment variable which points to your local APT-InIt repository
+* **$REPO** environment variable which points to the parent directory of APT-InIt
+* **$APT_INIT** environment variable which points to your local APT-InIt repository
 
 
 ## Motivation
@@ -69,10 +69,13 @@ The rakefile contains the following:
 * YouCompleteMe - (https://github.com/Valloric/YouCompleteMe)
 * TernJS - (http://ternjs.net/)
 * Vim-Airline - (https://github.com/bling/vim-airline)
+* Ultisnips - (https://github.com/SirVer/ultisnips)
+* delimitMate - (https://github.com/Raimondi/delimitMate)
+* Supertab - (https://github.com/ervandew/supertab)
 
 Explanations can be found on their respective pages.
 
-**Important note:** To make optimal use of YouCompleteMe, look into how the **.ycm_extra_conf.py** files work. If you also use a centralized include-directory, make sure you add an extra '-I' flag to the flags-variable inside of the file and make it point to the include directory.
+**Important note:** To make optimal use of YouCompleteMe, look into how the **.ycm_extra_conf.py** file works. If you also use a centralized include-directory, make sure you add an extra '-I' flag to the flags-variable inside of the file and make it point to the include directory where all necessary header-files are located.
 
 - There are some Git-modifications as well
 ```
