@@ -95,22 +95,14 @@ task :vim do
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
     plugins.each do |repo|
-      begin
-        Gitter.clone(repo)
-      rescue 
-        puts "ERROR: #{repo} already existing or invalid".red
-      end
+	Gitter.clone(repo)
     end
   end
 
   # Clone delimitMate
   delimDir = File.join(Cradle.getAptInit, '/vim/.vim/')
   Dir.chdir(delimDir) do
-      begin
-	  Gitter.clone('https://github.com/Raimondi/delimitMate.git')
-      rescue
-	  puts "ERROR: https://github.com/Raimondi/delimitMate.git already existing or invalid"
-      end
+    Gitter.clone('https://github.com/Raimondi/delimitMate.git')
   end
 
   # Install YouCompleteMe Necessities
@@ -122,11 +114,8 @@ task :vim do
   end
 
   # Install TernJS
-  begin
-    Getter.install(nodejs npm)
-  rescue
-    puts "WARNING: NodeJS/npm already installed!".yellow
-  end
+  
+  Getter.install('nodejs npm')
 
   Dir.chdir(File.join(bundleDir,'tern_for_vim')) do
     sh('npm install')
@@ -171,12 +160,8 @@ task :apps do
   Getter.addRepo('ppa:linrunner/tlp')
   Getter.addRepo('ppa:ricotz/docky')
 
-  # Update the repositories
-  begin  
+  # Update the repositories 
     Getter.update()
-  rescue
-    "WARNING: Updating some repositories might have failed!".yellow
-  end
 
   # Install the applications
   apps = Array.new
@@ -197,11 +182,7 @@ task :apps do
   # ^ If you are using a ThinkPad, you can add: tp-smapi-dkms & acpi-call-tools
 
   apps.each do |app|
-    begin
       Getter.install(app)
-    rescue
-      puts "ERROR: FAILED TO INSTALL #{app}".red
-    end
   end
 
   # Initial start of TLP in case of a laptop, it will start automatically after every reboot
@@ -221,11 +202,11 @@ end
 
 task :tools do
   # Install GCC 4.9
-  Getter.addRepo('ppa:ubuntu-toolchain-r/test')
-  Getter.update
-  Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')
-
-  sh "sudo apt-get autoremove" # Remove old versions
+     Getter.addRepo('ppa:ubuntu-toolchain-r/test')
+     Getter.update
+     Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')	
+  
+  sh "sudo apt-get -y autoremove" # Remove old versions
 
   puts "Installed necessary tools".yellow
 end

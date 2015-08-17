@@ -35,7 +35,7 @@ syntax on
 filetype plugin indent on
 
 " delimitMate
-so .vim/delimitMate/test/_setup.vim
+so ~/.vim/delimitMate/test/_setup.vim
 let delimitMate_expand_cr = 1
 
 " Enable JavaScript syntax highlighting 
@@ -94,11 +94,13 @@ colorscheme molokai
 syntax enable
 
 
-
 " Switch between split screens easily
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 
+" Who wants an 8 character tab?  Not me!
+set shiftwidth=2
+set softtabstop=2
 
 " Line Numbers PWN!
 set number

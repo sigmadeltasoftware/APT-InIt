@@ -12,15 +12,30 @@ class Getter
   extend Rake::DSL
 
   def self.update()
-    sh "sudo apt-get update -y"
+    begin 
+      sh "sudo apt-get update -y"
+    rescue => e
+      puts "ERROR: Problems encountered during apt-get update!".red
+      puts "#{e.class}: #{e.message}".red
+    end
   end
 
   def self.install(package)
-    sh "sudo apt-get install -y #{package}"
+    begin
+      sh "sudo apt-get install -y #{package}"
+    rescue => e
+      puts "ERROR: Problems encountered during apt-get install!".red
+      puts "#{e.class}: #{e.message}".red
+    end
   end
 
   def self.addRepo(repo)
-    sh "sudo add-apt-repository -y #{repo}"
+    begin
+      sh "sudo add-apt-repository -y #{repo}"
+    rescue => e
+      puts "ERROR: Problems encountered during add-apt-repository!".red
+      puts "#{e.class}: #{e.message}".red
+    end
   end
 
 end
