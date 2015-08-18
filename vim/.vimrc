@@ -89,6 +89,9 @@ imap <C-v> <C-r><C-o>+
 " Colorscheme
 colorscheme molokai
 
+" Start with fullscreen
+:set lines=999 columns=999
+
 
 " Needed fr Syntax highlighting
 syntax enable

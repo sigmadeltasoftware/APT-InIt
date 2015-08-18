@@ -51,7 +51,9 @@ The rakefile contains the following:
 
 ##### Programming Environment
 
-* EnvInit.sh contains a centralized position for environment variables
+* EnvInit.sh contains a centralized position for environment variables as well as auto-completion configurations for executable shell-scripts. These extra commands are available:
+
+* gv - This shell script is an abstraction for *gvim -O*, meaning it will open the files passed as arguments in gVim with a vertical window-split.
 
 ##### Tools
 
