@@ -20,6 +20,8 @@ fail("Could not guess OS from #{RUBY_PLATFORM}") if os.nil?
 
 class Cradle
 
+    extend Rake::DSL
+
     def self.getOs
         _Os = nil
         case os
@@ -45,6 +47,15 @@ class Cradle
 
     def self.getAptInit
       return ENV['APT_INIT']
+    end
+
+    def self.safeSh(command)
+      begin
+        sh command
+      rescue => e
+        puts "ERROR: #{command} -  failed! ".red
+	puts "#{e.class}: #{e.message}".red
+      end
     end
 
 end

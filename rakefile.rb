@@ -91,6 +91,7 @@ task :vim do
   plugins.push('https://github.com/SirVer/ultisnips.git')
   plugins.push('https://github.com/honza/vim-snippets.git')
   plugins.push('https://github.com/ervandew/supertab.git')
+  plugins.push('https://github.com/mileszs/ack.vim.git')
 
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
@@ -178,6 +179,7 @@ task :apps do
   apps.push('plank')
   apps.push('tlp tlp-rdw smartmontools ethtool')
   apps.push('tp-smapi-dkms acpi-call-tools')
+  apps.push('ack-grep')
 
   # ^ If you are using a ThinkPad, you can add: tp-smapi-dkms & acpi-call-tools
 
@@ -192,6 +194,9 @@ task :apps do
   rescue
     puts "ERROR: Failed starting TLP, not using a laptop?"
   end
+
+  # Replace Debian standard 'ack' command with 'ack-grep'
+  Cradle.safeSh('sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
 
   # End of :apps
   puts ">>>> Task :apps succesfully ended!".yellow
@@ -211,7 +216,9 @@ task :tools do
   puts "Installed necessary tools".yellow
 end
 
-
+task :test do
+  # Insert test-cases in here for quickly debugging this rakefile
+end
 
 task :dia => [:vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init

@@ -23,6 +23,7 @@ Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'ervandew/supertab'
+Plugin 'mileszs/ack.vim'
 
 
 
@@ -48,13 +49,10 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_register_as_syntastic_checker = 0
 autocmd CompleteDone * pclose
 
-" Mapping
-"let g:ycm_key_list_select_completion = [‘<C-TAB>’, ‘<Down>’]
-"let g:ycm_key_list_previous_completion = [‘<C-S-TAB>’, ‘<Up>’]
-"let g:SuperTabDefaultCompletionType = ‘<C-Tab>’
-"
+
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -78,6 +76,8 @@ map <C-n> :NERDTreeToggle<CR>
 
 " Smarter tab line - Vim-Airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#show_buffers = 0
 set laststatus=2
 
 " Enable copying to clipboard using 'CTRL + c'

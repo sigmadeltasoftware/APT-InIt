@@ -74,6 +74,7 @@ The rakefile contains the following:
 * Ultisnips - (https://github.com/SirVer/ultisnips)
 * delimitMate - (https://github.com/Raimondi/delimitMate)
 * Supertab - (https://github.com/ervandew/supertab)
+* Ack.vim - (https://github.com/mileszs/ack.vim)
 
 Explanations can be found on their respective pages.
 
