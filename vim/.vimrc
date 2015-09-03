@@ -24,7 +24,10 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'ervandew/supertab'
 Plugin 'mileszs/ack.vim'
-
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'claco/jasmine.vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'isRuslan/vim-es6'
 
 
 " All of your Plugins must be added before the following line
@@ -79,6 +82,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#show_buffers = 0
 set laststatus=2
+
+
+" Javacsript-library-syntax
+let g:used_javascript_libs = 'jasmine'
 
 " Enable copying to clipboard using 'CTRL + c'
 vmap <C-c> "+yi
@@ -140,4 +147,8 @@ nnoremap <silent> <C-t> :tabnew<CR>
 " search will center on the line it's found in.
 map N Nzz
 map n nzz
+
+" Enable indenting by tab & shift-tab
+vmap <Space-Tab> >gv
+vmap <S-Tab> <gv
 

@@ -1,5 +1,5 @@
 # APT-InIt
-### Applications, Programming Environment & Tools - Initialization by ItWillDo
+### Applications, Programming environment & Tools - Initialization by ItWillDo
 
 
 
@@ -75,6 +75,11 @@ The rakefile contains the following:
 * delimitMate - (https://github.com/Raimondi/delimitMate)
 * Supertab - (https://github.com/ervandew/supertab)
 * Ack.vim - (https://github.com/mileszs/ack.vim)
+* Javascript-libraries-syntax.vim - (https://github.com/othree/javascript-libraries-syntax.vim)
+* Jasmine.vim - (https://github.com/claco/jasmine.vim)
+* indentLine - (https://github.com/Yggdroot/indentLine)
+* Vim-es6 - (https://github.com/isRuslan/vim-es6)
+
 
 Explanations can be found on their respective pages.
 

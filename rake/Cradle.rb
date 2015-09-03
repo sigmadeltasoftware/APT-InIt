@@ -58,4 +58,13 @@ class Cradle
       end
     end
 
+    def self.sudoSh(command)
+      begin
+        sh "sudo #{command}"
+      rescue => e
+        puts "ERROR: #{command} -  failed! ".red
+	puts "#{e.class}: #{e.message}".red
+      end
+    end
+
 end

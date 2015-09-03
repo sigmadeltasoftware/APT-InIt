@@ -72,8 +72,16 @@ class Gitter
     rescue => e
       puts "#{e.class}: #{e.message}".red
       puts "ERROR: Failure encountered during Git clone attempt!".red
+    end 
+  end
+
+  def self.checkout(tag)
+    begin
+      sh "git checkout tags/#{tag}"
+    rescue => e
+      puts "#{e.class}: #{e.message}".red
+      puts "ERROR: Failure encountered during Git checkout attempt!".red
     end
-    
   end
 
 

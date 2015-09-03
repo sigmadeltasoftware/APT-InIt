@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Initialize React-project
+sudo npm install react browserify watchify 6to5ify --save-dev

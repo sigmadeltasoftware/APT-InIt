@@ -1,1 +1,14 @@
-gvim -O $1 $2
+#!/bin/bash
+
+echo $#;
+
+if [ $# == "3" ]; then
+    gvim -O $1 $2 -c "wincmd l" -c "split $3"
+elif [ $1 == 'apt' ]; then
+    cd $APT_INIT
+    gvim -O rakefile.rb README.md -c "wincmd l" -c "split vim/.vimrc"
+else
+    gvim -O $1 $2
+fi
+
+

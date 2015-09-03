@@ -3,13 +3,13 @@
 require(File.join(ENV['APT_INIT'],'/rake/Cradle.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Gitter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
-
+require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
 
 # Install colorize-gem
 begin
    Gem::Specification.find_by_name('colorize')
 rescue
-    sh "sudo gem install colorize"
+    Cradle.sudoSh "gem install colorize"
 end
 
 require('colorize')
@@ -45,6 +45,11 @@ task :init do
   Dir.chdir(Cradle.getAptInit) do
     Gitter.uth()
   end
+
+  # Create dir for node-builds
+  Dir.chdir(Cradle.getAptInit) do
+    Cradle.sudoSh('mkdir node')
+  end
    
   # Show System Data
   puts '--- TASK: Initialisation ---'.green
@@ -64,13 +69,9 @@ task :vim do
   # Set up Vim-environment
   puts "--- TASK: Vim setup---".green
 
-  # Remote precious links/files
-  begin
-    sh("rm ~/.vim")
-    sh("rm ~/.vimrc")
-  rescue
-    puts "WARNING: No previous Vim-config files found".yellow 
-  end
+  # Remove previous links/files
+  Cradle.sudoSh("rm ~/.vim")
+  Cradle.sudoSh("rm ~/.vimrc")
 
   # Clone plugin-repositories
   puts " >>>>> Cloning necessary submodules...".blue
@@ -92,11 +93,24 @@ task :vim do
   plugins.push('https://github.com/honza/vim-snippets.git')
   plugins.push('https://github.com/ervandew/supertab.git')
   plugins.push('https://github.com/mileszs/ack.vim.git')
+  plugins.push('https://github.com/othree/javascript-libraries-syntax.vim.git')
+  plugins.push('https://github.com/claco/jasmine.vim.git')
+  plugins.push('https://github.com/Yggdroot/indentLine.git')
+  plugins.push('https://github.com/isRuslan/vim-es6.git')
+
+
 
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
     plugins.each do |repo|
 	Gitter.clone(repo)
+    end
+    
+    # Add AngularJS snippets to UltiSnip
+    Dir.chdir(File.join(bundleDir,'vim-snippets')) do    
+	  Gitter.clone('https://github.com/matthewsimo/angular-vim-snippets.git')
+	  Cradle.safeSh('sudo cp -rp angular-vim-snippets/UltiSnips/* UltiSnips')
+	  Cradle.safeSh('sudo cp -rp angular-vim-snippets/snippets/* snippets')	
     end
   end
 
@@ -115,9 +129,6 @@ task :vim do
   end
 
   # Install TernJS
-  
-  Getter.install('nodejs npm')
-
   Dir.chdir(File.join(bundleDir,'tern_for_vim')) do
     sh('npm install')
   end
@@ -129,11 +140,7 @@ task :vim do
   symlinks.push("ln -sv #{Cradle.getAptInit}/vim/.vimrc ~/.vimrc")
   symlinks.push("ln -sfv #{Cradle.getAptInit}/vim/.vim ~/.vim")
   symlinks.each do |symlink|
-    begin
-      sh "#{symlink}"
-    rescue 
-      puts "ERROR: #{symlink} - FAILED".red
-    end
+    Cradle.sudoSh("#{symlink}")
   end
 
   # Install the plugins with Vundle
@@ -188,15 +195,11 @@ task :apps do
   end
 
   # Initial start of TLP in case of a laptop, it will start automatically after every reboot
-  begin 
-    sh "sudo tlp start"
-    sh "sudo tlp stat"
-  rescue
-    puts "ERROR: Failed starting TLP, not using a laptop?"
-  end
+    Cradle.sudoSh('tlp start')
+    Cradle.sudoSh('tlp stat')
 
   # Replace Debian standard 'ack' command with 'ack-grep'
-  Cradle.safeSh('sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
+  Cradle.sudoSh('dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
 
   # End of :apps
   puts ">>>> Task :apps succesfully ended!".yellow
@@ -204,6 +207,24 @@ task :apps do
   
 end
 
+task :node do
+  
+  Dir.chdir(File.join(Cradle.getAptInit,'/node')) do
+    Gitter.clone('https://github.com/joyent/node.git')
+  end  
+  Dir.chdir(File.join(Cradle.getAptInit,'/node/node')) do
+
+      stableVer='v0.12.7';
+      Gitter.checkout(stableVer)
+      Cradle.sudoSh('./configure')
+      Cradle.sudoSh('make')
+      Cradle.sudoSh('make install') 
+  end
+  Noder.install('gulp')
+  Noder.install('jspm')
+  Noder.install('yo generator-aurelia')
+  #!NOTE: It's best to run 'jspm registry config github' after this install
+end
 
 task :tools do
   # Install GCC 4.9
@@ -212,6 +233,13 @@ task :tools do
      Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')	
   
   sh "sudo apt-get -y autoremove" # Remove old versions
+  
+  # Web dependencies
+    Getter.install('ruby-dev')
+    Cradle.sudoSh('gem install sass')
+    Cradle.sudoSh('gem install compass')
+    Cradle.sudoSh('gem install css_parser')
+
 
   puts "Installed necessary tools".yellow
 end
@@ -220,7 +248,7 @@ task :test do
   # Insert test-cases in here for quickly debugging this rakefile
 end
 
-task :dia => [:vim, :apps, :tools] do
+task :dia => [:node, :vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red
