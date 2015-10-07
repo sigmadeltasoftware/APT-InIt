@@ -4,6 +4,7 @@ require(File.join(ENV['APT_INIT'],'/rake/Cradle.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Gitter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
+require(File.join(ENV['REPO'],'NDKake/Ndkake.rb'))
 
 # Install colorize-gem
 begin
@@ -83,20 +84,15 @@ task :vim do
   plugins.push('https://github.com/pangloss/vim-javascript.git')
   plugins.push('https://github.com/scrooloose/nerdtree.git')
   plugins.push('https://github.com/elzr/vim-json.git')
-  plugins.push('https://github.com/moll/vim-node.git')
   plugins.push('https://github.com/tpope/vim-haml.git')
   plugins.push('https://github.com/octol/vim-cpp-enhanced-highlight.git')
   plugins.push('https://github.com/Valloric/YouCompleteMe.git')
-  plugins.push('https://github.com/marijnh/tern_for_vim.git')
   plugins.push('https://github.com/bling/vim-airline.git')
   plugins.push('https://github.com/SirVer/ultisnips.git')
   plugins.push('https://github.com/honza/vim-snippets.git')
   plugins.push('https://github.com/ervandew/supertab.git')
   plugins.push('https://github.com/mileszs/ack.vim.git')
-  plugins.push('https://github.com/othree/javascript-libraries-syntax.vim.git')
-  plugins.push('https://github.com/claco/jasmine.vim.git')
   plugins.push('https://github.com/Yggdroot/indentLine.git')
-  plugins.push('https://github.com/isRuslan/vim-es6.git')
 
 
 
@@ -105,19 +101,6 @@ task :vim do
     plugins.each do |repo|
 	Gitter.clone(repo)
     end
-    
-    # Add AngularJS snippets to UltiSnip
-    Dir.chdir(File.join(bundleDir,'vim-snippets')) do    
-	  Gitter.clone('https://github.com/matthewsimo/angular-vim-snippets.git')
-	  Cradle.safeSh('sudo cp -rp angular-vim-snippets/UltiSnips/* UltiSnips')
-	  Cradle.safeSh('sudo cp -rp angular-vim-snippets/snippets/* snippets')	
-    end
-  end
-
-  # Clone delimitMate
-  delimDir = File.join(Cradle.getAptInit, '/vim/.vim/')
-  Dir.chdir(delimDir) do
-    Gitter.clone('https://github.com/Raimondi/delimitMate.git')
   end
 
   # Install YouCompleteMe Necessities
@@ -126,11 +109,6 @@ task :vim do
   Dir.chdir(File.join(bundleDir,'YouCompleteMe')) do
     Gitter.uth()
     sh "./install.sh --clang-completer"
-  end
-
-  # Install TernJS
-  Dir.chdir(File.join(bundleDir,'tern_for_vim')) do
-    sh('npm install')
   end
 
 
@@ -165,8 +143,7 @@ task :apps do
   # Add necessary repositories
   Getter.addRepo('ppa:webupd8team/sublime-text-3')
   Getter.addRepo('ppa:videolan/stable-daily')
-  Getter.addRepo('ppa:linrunner/tlp')
-  Getter.addRepo('ppa:ricotz/docky')
+  Getter.addRepo('ppa:linrunner/tlp') 
 
   # Update the repositories 
     Getter.update()
@@ -183,7 +160,6 @@ task :apps do
   apps.push('meld')
   apps.push('vlc')
   apps.push('filezilla')
-  apps.push('plank')
   apps.push('tlp tlp-rdw smartmontools ethtool')
   apps.push('tp-smapi-dkms acpi-call-tools')
   apps.push('ack-grep')
@@ -248,7 +224,24 @@ task :test do
   # Insert test-cases in here for quickly debugging this rakefile
 end
 
-task :dia => [:node, :vim, :apps, :tools] do
+task :zsh do
+
+  Dir.chdir(ENV['APT_INIT'] + "/zsh") do
+    # Install powerline-fonts
+    Gitter.clone('https://github.com/powerline/fonts.git')
+    Cradle.sudoSh("fonts/install.sh")
+  end
+
+  Getter.install('zsh')
+  Cradle.safeSh('sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"')
+
+  #TODO: Auto-change theme to 'agnoster'
+  puts ">> Change the Terminal colors/fonts and set it to run 'zsh' upon execution".red
+
+end
+
+
+task :dia => [:zsh, :node, :vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red
@@ -256,6 +249,17 @@ task :dia => [:node, :vim, :apps, :tools] do
   puts "=================================================".red
   puts "=================================================".blue
 end
+
+
+
+task :ndk do
+  test = Ndkake.new
+  #test.GetSize
+  test[0].setName("testname")
+  puts test[0].name
+
+end
+
 
 
 

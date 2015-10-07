@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Initialize React-project
-sudo npm install react browserify watchify 6to5ify --save-dev
+sudo npm install react browserify watchify gulp gulp-sass gulp-notify gulp-babel bootstrap-sass font-awesome --save-dev

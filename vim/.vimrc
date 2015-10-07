@@ -16,7 +16,6 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'elzr/vim-json'
-Plugin 'moll/vim-node'
 Plugin 'tpope/vim-haml'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'bling/vim-airline'
@@ -24,10 +23,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'ervandew/supertab'
 Plugin 'mileszs/ack.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'claco/jasmine.vim'
 Plugin 'Yggdroot/indentLine'
-Plugin 'isRuslan/vim-es6'
 
 
 " All of your Plugins must be added before the following line
@@ -148,7 +144,8 @@ nnoremap <silent> <C-t> :tabnew<CR>
 map N Nzz
 map n nzz
 
-" Enable indenting by tab & shift-tab
-vmap <Space-Tab> >gv
-vmap <S-Tab> <gv
+" Enable indenting by Shift-Space & Ctrl-Space due to tab being used by other
+" plugins
+vmap <S-Space> >gv
+vmap <C-Space> <gv
 

@@ -46,16 +46,16 @@ The rakefile contains the following:
 * Meld
 * VLC
 * FileZilla
-* Plank/Docky
 * TLP Power Management
 
 ##### Programming Environment
 
 * EnvInit.sh contains a centralized position for environment variables as well as auto-completion configurations for executable shell-scripts. These extra commands are available:
 
-* gv - This shell script is an abstraction for *gvim -O*, meaning it will open the files passed as arguments in gVim with a vertical window-split.
+* gv - This shell script is an abstraction for *gvim* and it will open the files depending on the number of arguments provided. When you provide 2 files, it will open these with a vertical split. When you provide 3 files, it will open the first file on the left-side as the "main view" and the right side will be horizontally split and divided among the 2 other files.
 
 ##### Tools
+
 
 - There are a number of Vim-plugins included which will make your life (a lot!) easier:
 
@@ -65,25 +65,23 @@ The rakefile contains the following:
 * Vim-JavaScript - (https://github.com/pangloss/vim-javascript)
 * Nerdtree - (https://github.com/scrooloose/nerdtree)
 * Vim-JSON - (https://github.com/elzr/vim-json)
-* Vim-Node - (https://github.com/moll/vim-node)
 * Vim-HAML - (https://github.com/tpope/vim-haml)
 * Vim-Cpp-Enhanced-Highlight - (https://github.com/octol/vim-cpp-enhanced-highlight)
 * YouCompleteMe - (https://github.com/Valloric/YouCompleteMe)
-* TernJS - (http://ternjs.net/)
 * Vim-Airline - (https://github.com/bling/vim-airline)
 * Ultisnips - (https://github.com/SirVer/ultisnips)
 * delimitMate - (https://github.com/Raimondi/delimitMate)
 * Supertab - (https://github.com/ervandew/supertab)
 * Ack.vim - (https://github.com/mileszs/ack.vim)
-* Javascript-libraries-syntax.vim - (https://github.com/othree/javascript-libraries-syntax.vim)
-* Jasmine.vim - (https://github.com/claco/jasmine.vim)
 * indentLine - (https://github.com/Yggdroot/indentLine)
-* Vim-es6 - (https://github.com/isRuslan/vim-es6)
+
 
 
 Explanations can be found on their respective pages.
 
 **Important note:** To make optimal use of YouCompleteMe, look into how the **.ycm_extra_conf.py** file works. If you also use a centralized include-directory, make sure you add an extra '-I' flag to the flags-variable inside of the file and make it point to the include directory where all necessary header-files are located.
+
+- Some Zsh-functionalities
 
 - There are some Git-modifications as well
 ```
