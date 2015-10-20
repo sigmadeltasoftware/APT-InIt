@@ -6,14 +6,19 @@
 ## Synopsis
 
 
-APT-InIt is a Rake-based script for Debian (Mostly Ubuntu) systems which will initialize the system with the necessary modificiations which I, ItWillDo, require to get my development environment up and running. These range from basic applications such as the Chromium browser, to shell-scripts with environment variables which I use for my dev env. The project is reliant on the following dependencies: 
+APT-InIt is a Rake-based script for Debian (Mostly Ubuntu) systems which will initialize the system with the necessary modificiations which I, ItWillDo, require to get my development environment up and running. These range from basic applications such as the Chromium browser, to shell-scripts with environment variables which I use for my dev env. 
 
+Before running any command from the Rake-system, execute following command: 
 
-* Git
-* Rake
-* **$REPO** environment variable which points to the parent directory of APT-InIt
-* **$APT_INIT** environment variable which points to your local APT-InIt repository
+```
+mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git
+```
 
+Afterward add the following line to your ~/.bashrc: 
+
+```
+source ~/REPO/APT-InIt/env/EnvInit.sh
+```
 
 ## Motivation
 
