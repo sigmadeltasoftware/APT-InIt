@@ -6,6 +6,7 @@ require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
 #require(File.join(ENV['REPO'],'NDKake/Ndkake.rb'))
 
+require 'colorize'
 
 ########################## :init - INITIALIZATION TASK 
 task :init do
@@ -17,6 +18,8 @@ task :init do
     open(bashrc, 'a') do |file|
       file.puts ""
       file.puts "# Add APT-InIt Variable support"
+      file.puts "export REPO=~/REPO"
+      file.puts "export APT_INIT=$REPO/APT-InIt"
       file.puts "source $APT_INIT/env/EnvInit.sh"
       file.puts ""
     end
@@ -236,7 +239,7 @@ task :zsh do
 end
 
 
-task :dia => [:init, :zsh, :node, :vim, :apps, :tools] do
+task :dia => [:zsh, :node, :vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red

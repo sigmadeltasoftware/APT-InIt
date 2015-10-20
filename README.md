@@ -14,11 +14,15 @@ Before running any command from the Rake-system, execute following command:
 mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git
 ```
 
-Afterward add the following line to your ~/.bashrc: 
+Afterward go into the APT_INIT directory and run following command: 
 
 ```
-source ~/REPO/APT-InIt/env/EnvInit.sh
+rake init
 ```
+
+This will initialize the environment and add the necessary variables to your ~/.bashrc. 
+**NOTE**: If you make use of a different shell such as 'zsh', make sure to replace the added part to your ~/.zshrc instead.
+
 
 ## Motivation
 
