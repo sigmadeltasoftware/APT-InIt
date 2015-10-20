@@ -15,17 +15,6 @@ task :init do
     Gitter.uth()
   end
 
-  # Create dir for vim plugins
-  Dir.chdir(Cradle.getAptInit) do
-    Cradle.safeSh('mkdir vim/.vim/bundle')
-  end
-   
-  # Show System Data
-  puts '--- TASK: Initialisation ---'.green
-  puts("Operating System: ".blue + "#{Cradle.getOs}")
-  puts("$build_publish: ".blue + "#{Cradle.getPubDir}")
-  puts("$REPO: ".blue + "#{Cradle.getRepoDir}")
-
 
   # Check for/Create build_publish directory
   begin
@@ -34,28 +23,34 @@ task :init do
     puts "ERROR: $build_publish dir not created".red
   end
 
-
-  # Check if Environment variable are added to .bashrc
-  # >> If not, force user to reload the terminal-session
-
     bashrc=File.join(Cradle.getHome,'.bashrc')
 
     open(bashrc, 'a') do |file|
       file.puts ""
       file.puts "# Add APT-InIt Variable support"
-      file.puts "export REPO=~/REPO"
-      file.puts "export APT_INIT=$REPO/APT-InIt"
       file.puts "source $APT_INIT/env/EnvInit.sh"
       file.puts ""
     end
 
-    puts("!!!!! RELOAD THE TERMINAL SESSION TO LOAD ENV VARS:".red)
+  # Check if Environment variable are added to .bashrc
+  # >> If not, force user to reload the terminal-session
+
+    puts("!!!!! RELOAD THE TERMINAL SESSION BEFORE RUNNING ANY OTHER COMMAND TO LOAD ENV VARS:".red)
     puts("      source ~/.bashrc".red)
-    puts("!!!!! And re-run rake init".red)
+    puts("!!!!!".red)
 end
 
 
 ### ============ RUN :init BEFORE RUNNING THE OTHER COMMANDS =======
+
+########################## :info - Show system information
+task :info do
+  # Show System Data
+  puts '--- TASK: Initialisation ---'.green
+  puts("Operating System: ".blue + "#{Cradle.getOs}")
+  puts("$build_publish: ".blue + "#{Cradle.getPubDir}")
+  puts("$REPO: ".blue + "#{Cradle.getRepoDir}")
+end
 
 
 ########################## :vim - Set up the Vim environment
@@ -63,6 +58,11 @@ task :vim do
 
   # Set up Vim-environment
   puts "--- TASK: Vim setup---".green
+
+  # Create dir for vim plugins
+  Dir.chdir(Cradle.getAptInit) do
+    Cradle.safeSh('mkdir vim/.vim/bundle')
+  end
 
   # Remove previous links/files
   Cradle.sudoSh("rm ~/.vim")
@@ -236,15 +236,19 @@ task :zsh do
   end
 
   Getter.install('zsh')
-  Cradle.safeSh('sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"')
+  Cradle.safeSh('/bin/bash -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"')
 
-  #TODO: Auto-change theme to 'agnoster'
+  #Auto-change theme to 'agnoster'
+  zshrc=File.join(Cradle.getHome,'.zshrc')
+  text = File.read(zshrc)
+  File.open(zshrc, 'w') { |f| f << text.gsub('ZSH_THEME="robbyrussell"', 'ZSH_THEME="agnoster"') }
+
   puts ">> Change the Terminal colors/fonts and set it to run 'zsh' upon execution".red
 
 end
 
 
-task :dia => [:tools, :apps, :vim, :zsh] do # Excluded: :node 
+task :dia => [:tools, :apps, :vim, :zsh, :info] do # Excluded: :node 
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red
