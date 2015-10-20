@@ -4,7 +4,7 @@ require(File.join(ENV['APT_INIT'],'/rake/Cradle.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Gitter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
-require(File.join(ENV['REPO'],'NDKake/Ndkake.rb'))
+#require(File.join(ENV['REPO'],'NDKake/Ndkake.rb'))
 
 # Install colorize-gem
 begin
@@ -51,6 +51,10 @@ task :init do
   Dir.chdir(Cradle.getAptInit) do
     Cradle.sudoSh('mkdir node')
   end
+
+  Dir.chdir(Cradle.getAptInit) do
+    Cradle.sudoSh('mkdir vim/.vim/bundle')
+  end
    
   # Show System Data
   puts '--- TASK: Initialisation ---'.green
@@ -95,7 +99,7 @@ task :vim do
   plugins.push('https://github.com/Yggdroot/indentLine.git')
 
 
-
+  
   bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
   Dir.chdir(bundleDir) do
     plugins.each do |repo|
@@ -241,7 +245,7 @@ task :zsh do
 end
 
 
-task :dia => [:zsh, :node, :vim, :apps, :tools] do
+task :dia => [:init :zsh, :node, :vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red
