@@ -6,15 +6,6 @@ require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
 #require(File.join(ENV['REPO'],'NDKake/Ndkake.rb'))
 
-# Install colorize-gem
-begin
-   Gem::Specification.find_by_name('colorize')
-rescue
-    Cradle.sudoSh "gem install colorize"
-end
-
-require('colorize')
-
 
 ########################## :init - INITIALIZATION TASK 
 task :init do
@@ -245,7 +236,7 @@ task :zsh do
 end
 
 
-task :dia => [:init :zsh, :node, :vim, :apps, :tools] do
+task :dia => [:init, :zsh, :node, :vim, :apps, :tools] do
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red

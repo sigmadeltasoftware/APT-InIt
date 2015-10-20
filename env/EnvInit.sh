@@ -1,4 +1,6 @@
 # APT-InIt environment variables :
+export REPO=~/REPO
+export APT_INIT=$REPO/APT-InIt
 export build_publish=/tmp/pub
 
 # EDU_REPO Variable -- EDU_REPO is used for minor test projects and educational purposes, to avoid cluttering REPO
