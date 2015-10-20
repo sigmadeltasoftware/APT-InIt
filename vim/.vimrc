@@ -35,7 +35,7 @@ syntax on
 filetype plugin indent on
 
 " delimitMate
-so ~/.vim/delimitMate/test/_setup.vim
+so ~/.vim/bundle/delimitMate/test/_setup.vim
 let delimitMate_expand_cr = 1
 
 " Enable JavaScript syntax highlighting 

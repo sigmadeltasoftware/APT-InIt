@@ -1,4 +1,3 @@
-
 # Adding rake-classes
 require(File.join(ENV['APT_INIT'],'/rake/Cradle.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Gitter.rb'))
@@ -10,44 +9,15 @@ require 'colorize'
 
 ########################## :init - INITIALIZATION TASK 
 task :init do
-
-  # Check if Environment variable are added to .bashrc
-  # >> If not, force user to reload the terminal-session
-  if Cradle.getPubDir.nil?
-    bashrc=File.join(Cradle.getHome,'.bashrc')
-    open(bashrc, 'a') do |file|
-      file.puts ""
-      file.puts "# Add APT-InIt Variable support"
-      file.puts "export REPO=~/REPO"
-      file.puts "export APT_INIT=$REPO/APT-InIt"
-      file.puts "source $APT_INIT/env/EnvInit.sh"
-      file.puts ""
-    end
-    puts("!!!!! RELOAD THE TERMINAL SESSION TO LOAD ENV VARS:".red)
-    puts("      source ~/.bashrc".red)
-    puts("!!!!! And re-run rake init".red)
-    next 
-  end
-
-  # Check for/Create build_publish directory
-  begin
-    mkdir_p Cradle.getPubDir
-  rescue
-    puts "ERROR: $build_publish dir not created".red
-  end
-
+  
   # Update submodules
   Dir.chdir(Cradle.getAptInit) do
     Gitter.uth()
   end
 
-  # Create dir for node-builds
+  # Create dir for vim plugins
   Dir.chdir(Cradle.getAptInit) do
-    Cradle.sudoSh('mkdir node')
-  end
-
-  Dir.chdir(Cradle.getAptInit) do
-    Cradle.sudoSh('mkdir vim/.vim/bundle')
+    Cradle.safeSh('mkdir vim/.vim/bundle')
   end
    
   # Show System Data
@@ -56,6 +26,32 @@ task :init do
   puts("$build_publish: ".blue + "#{Cradle.getPubDir}")
   puts("$REPO: ".blue + "#{Cradle.getRepoDir}")
 
+
+  # Check for/Create build_publish directory
+  begin
+    mkdir_p Cradle.getPubDir
+  rescue
+    puts "ERROR: $build_publish dir not created".red
+  end
+
+
+  # Check if Environment variable are added to .bashrc
+  # >> If not, force user to reload the terminal-session
+
+    bashrc=File.join(Cradle.getHome,'.bashrc')
+
+    open(bashrc, 'a') do |file|
+      file.puts ""
+      file.puts "# Add APT-InIt Variable support"
+      file.puts "export REPO=~/REPO"
+      file.puts "export APT_INIT=$REPO/APT-InIt"
+      file.puts "source $APT_INIT/env/EnvInit.sh"
+      file.puts ""
+    end
+
+    puts("!!!!! RELOAD THE TERMINAL SESSION TO LOAD ENV VARS:".red)
+    puts("      source ~/.bashrc".red)
+    puts("!!!!! And re-run rake init".red)
 end
 
 
@@ -85,6 +81,7 @@ task :vim do
   plugins.push('https://github.com/tpope/vim-haml.git')
   plugins.push('https://github.com/octol/vim-cpp-enhanced-highlight.git')
   plugins.push('https://github.com/Valloric/YouCompleteMe.git')
+  plugins.push('https://github.com/Raimondi/delimitMate.git')
   plugins.push('https://github.com/bling/vim-airline.git')
   plugins.push('https://github.com/SirVer/ultisnips.git')
   plugins.push('https://github.com/honza/vim-snippets.git')
@@ -159,8 +156,8 @@ task :apps do
   apps.push('vlc')
   apps.push('filezilla')
   apps.push('tlp tlp-rdw smartmontools ethtool')
-  apps.push('tp-smapi-dkms acpi-call-tools')
   apps.push('ack-grep')
+  apps.push('tp-smapi-dkms acpi-call-tools')
 
   # ^ If you are using a ThinkPad, you can add: tp-smapi-dkms & acpi-call-tools
 
@@ -182,6 +179,11 @@ task :apps do
 end
 
 task :node do
+
+  # Create dir for node-builds
+  Dir.chdir(Cradle.getAptInit) do
+    Cradle.safeSh('mkdir node')
+  end
   
   Dir.chdir(File.join(Cradle.getAptInit,'/node')) do
     Gitter.clone('https://github.com/joyent/node.git')
@@ -205,14 +207,17 @@ task :tools do
      Getter.addRepo('ppa:ubuntu-toolchain-r/test')
      Getter.update
      Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')	
+
+  # Install Python-libs
+     Getter.install('python2.7-dev')
   
   sh "sudo apt-get -y autoremove" # Remove old versions
   
   # Web dependencies
-    Getter.install('ruby-dev')
-    Cradle.sudoSh('gem install sass')
-    Cradle.sudoSh('gem install compass')
-    Cradle.sudoSh('gem install css_parser')
+    #Getter.install('ruby-dev')
+    #Cradle.sudoSh('gem install sass')
+    #Cradle.sudoSh('gem install compass')
+    #Cradle.sudoSh('gem install css_parser')
 
 
   puts "Installed necessary tools".yellow
@@ -227,7 +232,7 @@ task :zsh do
   Dir.chdir(ENV['APT_INIT'] + "/zsh") do
     # Install powerline-fonts
     Gitter.clone('https://github.com/powerline/fonts.git')
-    Cradle.sudoSh("fonts/install.sh")
+    Cradle.safeSh("fonts/install.sh")
   end
 
   Getter.install('zsh')
@@ -239,7 +244,7 @@ task :zsh do
 end
 
 
-task :dia => [:zsh, :node, :vim, :apps, :tools] do
+task :dia => [:tools, :apps, :vim, :zsh] do # Excluded: :node 
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red

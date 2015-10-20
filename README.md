@@ -10,8 +10,9 @@ APT-InIt is a Rake-based script for Debian (Mostly Ubuntu) systems which will in
 
 Before running any command from the Rake-system, execute following command: 
 
+**NOTE:** Adjust the APT_INIT-variable accordingly.
 ```
-mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git
+mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git && export APT_INIT=~/REPO/APT-InIt
 ```
 
 Afterward go into the APT_INIT directory and run following command: 
@@ -20,8 +21,8 @@ Afterward go into the APT_INIT directory and run following command:
 rake init
 ```
 
-This will initialize the environment and add the necessary variables to your ~/.bashrc. 
-**NOTE**: If you make use of a different shell such as 'zsh', make sure to replace the added part to your ~/.zshrc instead.
+This will initialize the environment and add the necessary variables to your ~/.bashrc.
+**NOTE:** If you make use of a different shell such as 'zsh', make sure to replace the added part to your ~/.zshrc instead.
 
 
 ## Motivation
