@@ -4,3 +4,9 @@
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "gubg.build"]
+	path = gubg.build
+	url = https://github.com/gfannes/gubg.build
+[submodule "gubg.std"]
+	path = gubg.std
+	url = https://github.com/gfannes/gubg.std

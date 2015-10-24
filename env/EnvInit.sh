@@ -21,14 +21,33 @@ export PATH=$PATH:$HOME/Android/Sdk/platform-tools
 #export JAVA_HOME=/usr/local/jdk1.7.0_80
 #export PATH=$PATH:$JAVA_HOME/bin
 
+# Terminal functions
+function refresh {source ~/.zshrc}
+
+
 # Git Difftool configuration
 ### in terminal use: 'git df ${FILENAME}'
-git config --global diff.tool gvimdiff
+if [[ $OSTYPE == darwin* ]]; then 
+  git config --global difftool.gvimdiff.path `which mvimdiff`
+  git config --global mergetool.gvimdiff.path `which mvimdiff`
+fi
+
+git config --global diff.tool gvimdiff;
 git config --global difftool.prompt false
 git config --global alias.df difftool
 
+
+# Git Functions
+function gstat {git status}
+function gdf {git df}
+
 # Add 'exe'-folder to path
 export PATH=$APT_INIT/env/exe:$PATH
+
+# Build compiler functions
+function setBC_release {export build_compiler=clang7_x64-release}
+function setBC_debug {export build_compiler=clang7_x64-debug}
+
 
 # Autocomplete for files
 #complete -f gv

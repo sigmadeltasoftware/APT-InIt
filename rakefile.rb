@@ -117,7 +117,7 @@ task :vim do
   end
 
   # Install the plugins with Vundle
-  sh "vim +PluginInstall +qall"
+  sh "gvim +PluginInstall +qall"
   
   # User Notice regarding YCM
   puts ""
