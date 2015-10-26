@@ -2,6 +2,7 @@
 export REPO=~/REPO
 export APT_INIT=$REPO/APT-InIt
 export build_publish=/tmp/pub
+export gubg=$build_publish
 
 # EDU_REPO Variable -- EDU_REPO is used for minor test projects and educational purposes, to avoid cluttering REPO
 export EDU_REPO=/media/itwilldo/DATA/EDU_REPO

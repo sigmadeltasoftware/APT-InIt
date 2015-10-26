@@ -5,8 +5,8 @@
 	path = zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "gubg.build"]
-	path = gubg.build
+	path = gubg/gubg.build
 	url = https://github.com/gfannes/gubg.build
 [submodule "gubg.std"]
-	path = gubg.std
+	path = gubg/gubg.std
 	url = https://github.com/gfannes/gubg.std

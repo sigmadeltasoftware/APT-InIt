@@ -59,14 +59,20 @@ task :vim do
   # Set up Vim-environment
   puts "--- TASK: Vim setup---".green
 
-  # Create dir for vim plugins
-  Dir.chdir(Cradle.getAptInit) do
-    Cradle.safeSh('mkdir vim/.vim/bundle')
-  end
-
+ 
   # Remove previous links/files
   Cradle.sudoSh("rm ~/.vim")
   Cradle.sudoSh("rm ~/.vimrc")
+
+  # Remove previous plugins to start clean installation
+  Dir.chdir(Cradle.getAptInit) do
+    Dir.exist?('vim/.vim') do
+      Cradle.sudoSh("rm -R vim/.vim")
+    end
+    Cradle.safeSh('mkdir -p vim/.vim/bundle')
+  end
+
+
 
   # Clone plugin-repositories
   puts " >>>>> Cloning necessary submodules...".blue
