@@ -65,14 +65,12 @@ task :vim do
   Cradle.sudoSh("rm ~/.vimrc")
 
   # Remove previous plugins to start clean installation
-  Dir.chdir(Cradle.getAptInit) do
-    Dir.exist?('vim/.vim') do
-      Cradle.sudoSh("rm -R vim/.vim")
+  bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
+
+    Dir.exist?(bundleDir) do
+      Cradle.sudoSh("rm -R #{bundleDir}")
     end
-    Cradle.safeSh('mkdir -p vim/.vim/bundle')
-  end
-
-
+    Cradle.safeSh("mkdir -p #{bundleDir}")
 
   # Clone plugin-repositories
   puts " >>>>> Cloning necessary submodules...".blue
@@ -95,9 +93,7 @@ task :vim do
   plugins.push('https://github.com/mileszs/ack.vim.git')
   plugins.push('https://github.com/Yggdroot/indentLine.git')
 
-
-  
-  bundleDir = File.join(Cradle.getAptInit,'/vim/.vim/bundle/')
+ 
   Dir.chdir(bundleDir) do
     plugins.each do |repo|
 	Gitter.clone(repo)
@@ -106,7 +102,7 @@ task :vim do
 
   # Install YouCompleteMe Necessities
   puts " >>>>> Installing YouCompleteMe".blue
-  Getter.install('cmake') # > Installer needs Cmake
+  
   Dir.chdir(File.join(bundleDir,'YouCompleteMe')) do
     Gitter.uth()
     sh "./install.sh --clang-completer"
@@ -138,45 +134,59 @@ end
 
 ########################## :apps - Install the necessary applications
 task :apps do
-  # Remote standard Laptop-mode-tools
-  sh "sudo apt-get remove laptop-mode-tools"
 
-  # Add necessary repositories
-  Getter.addRepo('ppa:webupd8team/sublime-text-3')
-  Getter.addRepo('ppa:videolan/stable-daily')
-  Getter.addRepo('ppa:linrunner/tlp') 
 
-  # Update the repositories 
+  apps = Array.new
+  apps.push('zsh')
+  apps.push('nodejs')
+  apps.push('cmake')
+  case Cradle.getOs()
+  when "Linux"					    # UBUNTU APPLICATIONS
+    # Remove standard Laptop-mode-tools
+    sh "sudo apt-get remove laptop-mode-tools"
+
+    # Add necessary repositories
+    Getter.addRepo('ppa:webupd8team/sublime-text-3')
+    Getter.addRepo('ppa:videolan/stable-daily')
+    Getter.addRepo('ppa:linrunner/tlp') 
+
+    # Update the repositories 
     Getter.update()
 
-  # Install the applications
-  apps = Array.new
-  apps.push('build-essential python-dev zlib1g zlib1g-dev zlibc libxml2 libxml2-dev libxslt-dev python-gtksourceview2')
-  apps.push('flashplugin-nonfree')
-  apps.push('nodejs npm')
-  apps.push('chromium-browser')
-  apps.push('vim vim-gnome')
-  apps.push('zim')
-  apps.push('nemiver')
-  apps.push('meld')
-  apps.push('vlc')
-  apps.push('filezilla')
-  apps.push('tlp tlp-rdw smartmontools ethtool')
-  apps.push('ack-grep')
-  apps.push('tp-smapi-dkms acpi-call-tools')
-
-  # ^ If you are using a ThinkPad, you can add: tp-smapi-dkms & acpi-call-tools
-
+    # Install the applications
+    
+    apps.push('build-essential python-dev zlib1g zlib1g-dev zlibc libxml2 libxml2-dev libxslt-dev python-gtksourceview2')
+    apps.push('flashplugin-nonfree')
+    apps.push('chromium-browser')
+    apps.push('vim vim-gnome')
+    apps.push('zim')
+    apps.push('nemiver')
+    apps.push('meld')
+    apps.push('vlc')
+    apps.push('filezilla')
+    apps.push('tlp tlp-rdw smartmontools ethtool')
+    apps.push('silversearcher-ag')
+    apps.push('tp-smapi-dkms acpi-call-tools')# Thinkpad-tools
+  when "OSX"					    # MAC OSX APPLICATIONS
+    apps.push('the_silver_searcher')
+    apps.push('macvim --with-override-system-vim')
+    apps.push('wget')
+  else
+    puts("Applications not defined for current operating system")
+  end
+  
   apps.each do |app|
       Getter.install(app)
   end
 
-  # Initial start of TLP in case of a laptop, it will start automatically after every reboot
+  if Cradle.getOs == "Linux"   
+    # Initial start of TLP in case of a laptop, it will start automatically after every reboot
     Cradle.sudoSh('tlp start')
     Cradle.sudoSh('tlp stat')
+    # Replace Debian standard 'ack' command with 'ack-grep'
+    Cradle.sudoSh('dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
+  end
 
-  # Replace Debian standard 'ack' command with 'ack-grep'
-  Cradle.sudoSh('dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
 
   # End of :apps
   puts ">>>> Task :apps succesfully ended!".yellow
@@ -209,29 +219,31 @@ task :node do
 end
 
 task :tools do
-  # Install GCC 4.9
+
+  case Cradle.getOs
+  when "Linux"
+     # Install GCC 4.9
      Getter.addRepo('ppa:ubuntu-toolchain-r/test')
      Getter.update
-     Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')	
+     Getter.install('gcc-4.9 g++-4.9 cpp-4.9 gcc g++ cpp')
 
-  # Install Python-libs
+     # Install Python-libs
      Getter.install('python2.7-dev')
-  
-  sh "sudo apt-get -y autoremove" # Remove old versions
-  
-  # Web dependencies
-    #Getter.install('ruby-dev')
-    #Cradle.sudoSh('gem install sass')
-    #Cradle.sudoSh('gem install compass')
-    #Cradle.sudoSh('gem install css_parser')
+     
+     Cradle.sudoSh("apt-get -y autoremove") # Remove old versions     
+  end
 
+  
 
   puts "Installed necessary tools".yellow
 end
 
+
 task :test do
   # Insert test-cases in here for quickly debugging this rakefile
 end
+
+
 
 task :zsh do
 
@@ -241,8 +253,10 @@ task :zsh do
     Cradle.safeSh("fonts/install.sh")
   end
 
-  Getter.install('zsh')
-  Cradle.safeSh('/bin/bash -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"')
+  # Install Oh-My-Zsh if not already present
+  unless Dir.exist?(ENV['HOME'] + '/.oh-my-zsh')
+    Cradle.safeSh('/bin/bash -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"')
+  end
 
   #Auto-change theme to 'agnoster'
   zshrc=File.join(Cradle.getHome,'.zshrc')
@@ -270,7 +284,6 @@ task :ndk do
   #test.GetSize
   test[0].setName("testname")
   puts test[0].name
-
 end
 
 
