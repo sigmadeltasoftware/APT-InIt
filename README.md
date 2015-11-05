@@ -12,7 +12,7 @@ Before running any command from the Rake-system, execute following command:
 
 **NOTE:** Adjust the APT_INIT-variable accordingly.
 ```
-mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git && export REPO=~/REPO && export APT_INIT=~/REPO/APT-InIt
+mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git && export REPO=~/REPO && export APT_INIT=~/REPO/APT-InIt && build_publish=/tmp/pub
 ```
 
 Afterward go into the APT_INIT directory and run following command: 

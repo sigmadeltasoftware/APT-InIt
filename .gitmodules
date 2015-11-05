@@ -10,9 +10,3 @@
 [submodule "gubg.std"]
 	path = gubg/gubg.std
 	url = https://github.com/gfannes/gubg.std
-[submodule "gubg/gubg.std"]
-	path = gubg/gubg.std
-	url = https://github.com/gfannes/gubg.std.git
-[submodule "gubg/gubg.build"]
-	path = gubg/gubg.build
-	url = https://github.com/gfannes/gubg.build.git
