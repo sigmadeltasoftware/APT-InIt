@@ -42,6 +42,11 @@ git config --global alias.df difftool
 function gstat {git status}
 function gdf {git df}
 
+# TaskWarrior functions
+alias ta="task add"
+alias td="task done"
+alias tl="task list"
+
 # Add 'exe'-folder to path
 export PATH=$APT_INIT/env/exe:$PATH
 
