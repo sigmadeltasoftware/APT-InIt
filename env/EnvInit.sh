@@ -14,8 +14,8 @@ export HTDOCS=/opt/lampp/htdocs
 export APPS=$HOME/Applications
 
 # Variable for building Android NDK
-export ndk_build=$HOME/Android_NDK/ndk-build
-export PATH=$PATH:$HOME/Android/Sdk/platform-tools
+export ndk_build=$HOME/Android/ndk/android-ndk-r10e/ndk-build
+export PATH=$PATH:$HOME/Android/sdk/platform-tools
 
 # Variable for JDK
 ###export JAVA_HOME=/usr/local/jdk1.8.0_60
