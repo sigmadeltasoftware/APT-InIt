@@ -5,7 +5,7 @@ require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/NDKake/Ndkake.rb'))
 require 'colorize'
-require 'test/unit'
+#require 'test/unit'
 
 
 
