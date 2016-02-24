@@ -105,8 +105,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 
 " Who wants an 8 character tab?  Not me!
-set shiftwidth=2
-set softtabstop=2
+set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 
 " Line Numbers PWN!
 set number
