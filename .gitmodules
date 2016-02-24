@@ -10,3 +10,6 @@
 [submodule "gubg.std"]
 	path = gubg/gubg.std
 	url = https://github.com/gfannes/gubg.std
+[submodule "rake/NDKake"]
+	path = rake/NDKake
+	url = https://github.com/ItWillDo/NDKake.git

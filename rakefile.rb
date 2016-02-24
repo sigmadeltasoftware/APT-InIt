@@ -3,9 +3,15 @@ require(File.join(ENV['APT_INIT'],'/rake/Cradle.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Gitter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
-#require(File.join(ENV['REPO'],'NDKake/Ndkake.rb'))
-
+require(File.join(ENV['APT_INIT'],'/rake/NDKake/Ndkake.rb'))
 require 'colorize'
+#require 'test/unit'
+
+
+
+########################## :default - Refer to info 
+task :default => :info
+
 
 ########################## :init - INITIALIZATION TASK 
 task :init do
@@ -239,11 +245,6 @@ task :tools do
 end
 
 
-task :test do
-  # Insert test-cases in here for quickly debugging this rakefile
-end
-
-
 
 task :zsh do
 
@@ -276,16 +277,3 @@ task :dia => [:tools, :apps, :vim, :zsh, :info] do # Excluded: :node
   puts "=================================================".red
   puts "=================================================".blue
 end
-
-
-
-task :ndk do
-  test = Ndkake.new
-  #test.GetSize
-  test[0].setName("testname")
-  puts test[0].name
-end
-
-
-
-
