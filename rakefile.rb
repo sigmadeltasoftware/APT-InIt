@@ -2,7 +2,6 @@
 require(File.join(ENV['APT_INIT'],'/rake/Cradle.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Gitter.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/Getter.rb'))
-require(File.join(ENV['APT_INIT'],'/rake/Noder.rb'))
 require(File.join(ENV['APT_INIT'],'/rake/NDKake/Ndkake.rb'))
 require 'colorize'
 #require 'test/unit'
@@ -147,9 +146,8 @@ task :apps do
   apps.push('nodejs')
   apps.push('cmake')
   case Cradle.getOs()
+
   when "Linux"					    # UBUNTU APPLICATIONS
-    # Remove standard Laptop-mode-tools
-    sh "sudo apt-get remove laptop-mode-tools"
 
     # Add necessary repositories
     Getter.addRepo('ppa:webupd8team/sublime-text-3')
@@ -172,7 +170,9 @@ task :apps do
     apps.push('filezilla')
     apps.push('tlp tlp-rdw smartmontools ethtool')
     apps.push('silversearcher-ag')
-    apps.push('tp-smapi-dkms acpi-call-tools')# Thinkpad-tools
+    apps.push('tp-smapi-dkms acpi-call-tools')
+    # ^ Thinkpad-tools
+
   when "OSX"					    # MAC OSX APPLICATIONS
     apps.push('the_silver_searcher')
     apps.push('macvim --with-override-system-vim')
@@ -185,12 +185,19 @@ task :apps do
       Getter.install(app)
   end
 
-  if Cradle.getOs == "Linux"   
-    # Initial start of TLP in case of a laptop, it will start automatically after every reboot
-    Cradle.sudoSh('tlp start')
-    Cradle.sudoSh('tlp stat')
-    # Replace Debian standard 'ack' command with 'ack-grep'
-    Cradle.sudoSh('dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
+  if Cradle.getOs == "Linux"
+    begin    
+      # Initial start of TLP in case of a laptop, it will start automatically after every reboot
+      Cradle.sudoSh('tlp start')
+      Cradle.sudoSh('tlp stat')
+      # Replace Debian standard 'ack' command with 'ack-grep'
+      Cradle.sudoSh('dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep')
+
+      # Remove standard Laptop-mode-tools
+      sh "sudo apt-get remove laptop-mode-tools"
+    rescue
+      puts ">>>> TLP initialization failed. System is not a Thinkpad?"
+    end
   end
 
 
@@ -200,29 +207,6 @@ task :apps do
   
 end
 
-task :node do
-
-  # Create dir for node-builds
-  Dir.chdir(Cradle.getAptInit) do
-    Cradle.safeSh('mkdir node')
-  end
-  
-  Dir.chdir(File.join(Cradle.getAptInit,'/node')) do
-    Gitter.clone('https://github.com/joyent/node.git')
-  end  
-  Dir.chdir(File.join(Cradle.getAptInit,'/node/node')) do
-
-      stableVer='v0.12.7';
-      Gitter.checkout(stableVer)
-      Cradle.sudoSh('./configure')
-      Cradle.sudoSh('make')
-      Cradle.sudoSh('make install') 
-  end
-  Noder.install('gulp')
-  Noder.install('jspm')
-  Noder.install('yo generator-aurelia')
-  #!NOTE: It's best to run 'jspm registry config github' after this install
-end
 
 task :tools do
 
@@ -269,7 +253,7 @@ task :zsh do
 end
 
 
-task :dia => [:tools, :apps, :vim, :zsh, :info] do # Excluded: :node 
+task :dia => [:tools, :apps, :vim, :zsh, :info] do 
   # 'dia' or 'Do-it-all', will run through all tasks but init
   puts "=================================================".blue
   puts "=================================================".red

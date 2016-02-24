@@ -6,9 +6,9 @@
 ## Synopsis
 
 
-APT-InIt is a Rake-based script for Debian (Mostly Ubuntu) systems which will initialize the system with the necessary modificiations which I, ItWillDo, require to get my development environment up and running. These range from basic applications such as the Chromium browser, to shell-scripts with environment variables which I use for my dev env. 
+APT-InIt is a Rake-based script which will initialize the system with the necessary modificiations to get my development environment up and running. These range from basic applications and Zsh to shell-scripts with environment variables which I use for my dev env. 
 
-Before running any command from the Rake-system, execute following command: 
+Before running any command from the Rake-system, execute following command:
 
 **NOTE:** Adjust the APT_INIT-variable accordingly.
 ```
@@ -31,7 +31,7 @@ Considering setting up a good development environment can be time-consuming and 
 
 ## Installation
 
-The installation of everything is based on Rake (https://github.com/ruby/rake) which will make porting to different operating systems in a future a bit easier. To make use of this script, install the mentioned dependencies and afterward go to the $APT_INIT directory. From here run: 
+The installation of everything is based on Rake (https://github.com/ruby/rake) which makes operation on different operating systems easier. To make use of this script, install the mentioned dependencies and afterward go to the $APT_INIT directory. From here run: 
 
 ```
 * rake init -- Which will run the initialization task. It is possible you will have to terminate your terminal-sessionrun the task again after the environment variables have been bound to your bash-profile.
@@ -78,9 +78,9 @@ The rakefile contains the following:
 * Vim-HAML - (https://github.com/tpope/vim-haml)
 * Vim-Cpp-Enhanced-Highlight - (https://github.com/octol/vim-cpp-enhanced-highlight)
 * YouCompleteMe - (https://github.com/Valloric/YouCompleteMe)
+* DelimitMate - (https://github.com/Raimondi/delimitMate)
 * Vim-Airline - (https://github.com/bling/vim-airline)
 * Ultisnips - (https://github.com/SirVer/ultisnips)
-* delimitMate - (https://github.com/Raimondi/delimitMate)
 * Supertab - (https://github.com/ervandew/supertab)
 * Ack.vim - (https://github.com/mileszs/ack.vim)
 * indentLine - (https://github.com/Yggdroot/indentLine)
@@ -97,12 +97,6 @@ Explanations can be found on their respective pages.
 ```
 * Running "git df 'filename' " will open a "diff" window in gVim with a lot more detail than the standard terminal Vi-version would
 ```
-
-## To Be Done
-
-* Support for different OS'
-* Automated installation of XAMPP
-
 
 ## Contributors
 
