@@ -23,7 +23,7 @@ export PATH=$PATH:$HOME/Android/sdk/platform-tools
 #export PATH=$PATH:$JAVA_HOME/bin
 
 # Terminal functions
-function refresh {source ~/.zshrc}
+function refresh() { source ~/.zshrc }
 
 
 # Git Difftool configuration
@@ -39,8 +39,8 @@ git config --global alias.df difftool
 
 
 # Git Functions
-function gstat {git status}
-function gdf {git df}
+function gstat() { git status }
+function gdf() { git df }
 
 # TaskWarrior functions
 alias ta="task add"
@@ -51,8 +51,8 @@ alias tl="task list"
 export PATH=$APT_INIT/env/exe:$PATH
 
 # Build compiler functions
-function setBC_release {export build_compiler=clang7_x64-release}
-function setBC_debug {export build_compiler=clang7_x64-debug}
+function setBC_release() { export build_compiler=clang7_x64-release }
+function setBC_debug() { export build_compiler=clang7_x64-debug }
 
 
 # Autocomplete for files
