@@ -42,7 +42,8 @@ git config --global alias.df difftool
 function gstat() {git status}
 function gdf() {git df $@} # $@ gives all input arguments separated by spaces
 function gall() {git add --all}
-function gc() {git checkout $1}
+function gcheck() {git checkout $1}
+function gcom() {git commit -m $1}
 function gresh() {git reset --hard}
 
 # TaskWarrior functions
