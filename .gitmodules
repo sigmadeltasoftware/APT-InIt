@@ -1,15 +1,6 @@
-[submodule "Catch"]
-	path = Catch
-	url = https://github.com/philsquared/Catch.git
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "gubg.build"]
-	path = gubg/gubg.build
-	url = https://github.com/gfannes/gubg.build
-[submodule "gubg.std"]
-	path = gubg/gubg.std
-	url = https://github.com/gfannes/gubg.std
 [submodule "rake/NDKake"]
 	path = rake/NDKake
 	url = https://github.com/ItWillDo/NDKake.git

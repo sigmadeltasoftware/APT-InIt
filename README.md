@@ -31,7 +31,7 @@ Considering setting up a good development environment can be time-consuming and 
 
 ## Installation
 
-The installation of everything is based on Rake (https://github.com/ruby/rake) which makes operation on different operating systems easier. To make use of this script, install the mentioned dependencies and afterward go to the $APT_INIT directory. From here run: 
+The installation of everything is based on [Rake](https://github.com/ruby/rake) which makes operation on different operating systems easier. To make use of this script, install the mentioned dependencies and afterward go to the $APT_INIT directory. From here run: 
 
 ```
 * rake init -- Which will run the initialization task. It is possible you will have to terminate your terminal-sessionrun the task again after the environment variables have been bound to your bash-profile.
