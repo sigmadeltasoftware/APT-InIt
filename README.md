@@ -1,10 +1,7 @@
 # APT-InIt
 ### Applications, Programming environment & Tools - Initialization by ItWillDo
 
-
-
 ## Synopsis
-
 
 APT-InIt is a Rake-based script which will initialize the system with the necessary modificiations to get my development environment up and running. These range from basic applications and Zsh to shell-scripts with environment variables which I use for my dev env. 
 
@@ -12,7 +9,7 @@ Before running any command from the Rake-system, execute following command:
 
 **NOTE:** Adjust the APT_INIT-variable accordingly.
 ```
-mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/ItWillDo/APT-InIt.git && export REPO=~/REPO && export APT_INIT=~/REPO/APT-InIt && build_publish=/tmp/pub
+mkdir ~/REPO && sudo apt-get install git && sudo apt-get install rake && sudo gem install colorize && cd ~/REPO && git clone https://github.com/sigmadeltasoftware/APT-InIt.git && export REPO=~/REPO && export APT_INIT=~/REPO/APT-InIt && build_publish=/tmp/pub
 ```
 
 Afterward go into the APT_INIT directory and run following command: 
@@ -23,7 +20,6 @@ rake init
 
 This will initialize the environment and add the necessary variables to your ~/.bashrc.
 **NOTE:** If you make use of a different shell such as 'zsh', make sure to replace the added part to your ~/.zshrc instead.
-
 
 ## Motivation
 
@@ -66,7 +62,6 @@ The rakefile contains the following:
 
 ##### Tools
 
-
 - There are a number of Vim-plugins included which will make your life (a lot!) easier:
 
 * Vundle - (https://github.com/VundleVim/Vundle.vim)
@@ -84,8 +79,6 @@ The rakefile contains the following:
 * Supertab - (https://github.com/ervandew/supertab)
 * Ack.vim - (https://github.com/mileszs/ack.vim)
 * indentLine - (https://github.com/Yggdroot/indentLine)
-
-
 
 Explanations can be found on their respective pages.
 
