@@ -32,9 +32,14 @@ function gstat() {
   git status
 }
 
-# gdf: Git diff - Diffs either all changes, or only the files provided
+# gdf: Git Diff - Diffs either all changes, or only the files provided
 function gdf() {
   git df $@ # $@ gives all input arguments separated by spaces
+}
+
+# gdfc: Git Diff Cached: Diffs the staged files
+function gdfc() {
+  git df --cached
 }
 
 function gall() {
