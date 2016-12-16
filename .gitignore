@@ -7,6 +7,11 @@
 *.o
 *.so
 
+# APT_InIt related files #
+##########################
+vim/.vim/bundle
+zsh/fonts
+
 # Swap files #
 ##################
 *.swp
