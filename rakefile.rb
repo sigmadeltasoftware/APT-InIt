@@ -19,22 +19,14 @@ task :init do
     Gitter.uth()
   end
 
+  bashrc=File.join(Cradle.getHome,'.bashrc')
 
-  # Check for/Create build_publish directory
-  begin
-    mkdir_p Cradle.getPubDir
-  rescue
-    puts "ERROR: $build_publish dir not created".red
+  open(bashrc, 'a') do |file|
+    file.puts ""
+    file.puts "# Add APT-InIt Variable support"
+    file.puts "source $APT_INIT/env/EnvInit.sh"
+    file.puts ""
   end
-
-    bashrc=File.join(Cradle.getHome,'.bashrc')
-
-    open(bashrc, 'a') do |file|
-      file.puts ""
-      file.puts "# Add APT-InIt Variable support"
-      file.puts "source $APT_INIT/env/EnvInit.sh"
-      file.puts ""
-    end
 
   # Check if Environment variable are added to .bashrc
   # >> If not, force user to reload the terminal-session
@@ -52,7 +44,6 @@ task :info do
   # Show System Data
   puts '--- TASK: Initialisation ---'.green
   puts("Operating System: ".blue + "#{Cradle.getOs}")
-  puts("$build_publish: ".blue + "#{Cradle.getPubDir}")
 end
 
 

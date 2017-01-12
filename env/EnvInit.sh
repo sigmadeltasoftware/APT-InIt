@@ -1,6 +1,5 @@
 # APT-InIt environment variables :
 export APT_INIT=~/APT-InIt
-export build_publish=/tmp/pub
 
 # APPS Variable -- Reference to applications folder
 export APPS=$HOME/Applications

@@ -33,10 +33,6 @@ class Cradle
         return _Os
     end
 
-    def self.getPubDir
-      return ENV['build_publish']
-    end
-
     def self.getHome
       return ENV['HOME']
     end
