@@ -69,3 +69,4 @@ function gpb() {
 
 # Add 'exe'-folder to path
 export PATH=$APT_INIT/env/exe:$PATH
+alias aptinit=$APT_INIT/env/exe/aptinit.rb
