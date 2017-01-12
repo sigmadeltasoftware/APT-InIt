@@ -1,6 +1,5 @@
 # APT-InIt environment variables :
-export REPO=~/REPO
-export APT_INIT=$REPO/APT-InIt
+export APT_INIT=~/APT-InIt
 export build_publish=/tmp/pub
 
 # APPS Variable -- Reference to applications folder
@@ -39,7 +38,7 @@ function gdf() {
 
 # gdfc: Git Diff Cached: Diffs the staged files
 function gdfc() {
-  git df --cached
+  git diff --cached
 }
 
 function gall() {

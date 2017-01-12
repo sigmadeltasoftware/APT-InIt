@@ -37,10 +37,6 @@ class Cradle
       return ENV['build_publish']
     end
 
-    def self.getRepoDir
-      return ENV['REPO']
-    end
-
     def self.getHome
       return ENV['HOME']
     end

@@ -40,7 +40,7 @@ task :init do
   # >> If not, force user to reload the terminal-session
 
     puts("!!!!! RELOAD THE TERMINAL SESSION BEFORE RUNNING ANY OTHER COMMAND TO LOAD ENV VARS:".red)
-    puts("      source ~/.bashrc".red)
+    puts("      '$ source ~/.bashrc' or whichever config file your system is using ".red)
     puts("!!!!!".red)
 end
 
@@ -53,7 +53,6 @@ task :info do
   puts '--- TASK: Initialisation ---'.green
   puts("Operating System: ".blue + "#{Cradle.getOs}")
   puts("$build_publish: ".blue + "#{Cradle.getPubDir}")
-  puts("$REPO: ".blue + "#{Cradle.getRepoDir}")
 end
 
 

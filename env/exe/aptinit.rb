@@ -15,7 +15,7 @@ when nil, 'help', '-help', '--help'
     puts "    Available Git functions:"
     puts "      - gstat   : git status"
     puts "      - gdf     : git df $@"
-    puts "      - gdfc    : git df --cached"
+    puts "      - gdfc    : git diff --cached"
     puts "      - gall    : git add --all"
     puts "      - gcheck  : git checkout $1"
     puts "      - gcom    : git commit -m $1"
