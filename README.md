@@ -7,9 +7,10 @@ APT-InIt is a Rake-based script which will initialize the system with the necess
 
 Before running any command from the Rake-system, execute following command:
 
-**NOTE:** Adjust the APT_INIT-variable accordingly.
+**NOTE:** Make sure you have 'git' && 'rake' installed on your system!
+
 ```
-sudo apt-get install git rake && sudo gem install colorize && cd && git clone https://github.com/sigmadeltasoftware/APT-InIt.git && export APT_INIT=~/APT-InIt && build_publish=/tmp/pub
+sudo gem install colorize && cd && git clone https://github.com/sigmadeltasoftware/APT-InIt.git && export APT_INIT=~/APT-InIt
 ```
 
 Afterward go into the APT_INIT directory and run following command: 
