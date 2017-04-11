@@ -148,3 +148,9 @@ map n nzz
 vmap <S-Space> >gv
 vmap <C-Space> <gv
 
+" Navigate using ALT + WASD
+noremap å h
+noremap ß j
+noremap ∑ k
+noremap ∂ l
+
