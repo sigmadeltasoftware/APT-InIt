@@ -149,8 +149,13 @@ vmap <S-Space> >gv
 vmap <C-Space> <gv
 
 " Navigate using ALT + WASD
-noremap å h
-noremap ß j
-noremap ∑ k
-noremap ∂ l
+nnoremap å h
+nnoremap ß j
+nnoremap ∑ k
+nnoremap ∂ l
+
+imap å <Left>
+imap ß <Down>
+imap ∑ <Up>
+imap ∂ <Right>
 
