@@ -68,3 +68,6 @@ function gpb() {
 # Add 'exe'-folder to path
 export PATH=$APT_INIT/env/exe:$PATH
 alias aptinit=$APT_INIT/env/exe/aptinit.rb
+
+# Create alias for lazygit
+alias lz=lazygit
